@@ -9,6 +9,47 @@ function versusApp() {
         loading: true,
         error: null,
 
+        async shareComparison() {
+            try {
+                this.loading = true;
+                const container = document.getElementById('comparison-container');
+                
+                // Generate image
+                const canvas = await html2canvas(container, {
+                    scale: 2, // Higher quality
+                    backgroundColor: '#f8f9fa',
+                    logging: false,
+                    useCORS: true
+                });
+
+                // Convert to blob
+                const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png', 1.0));
+                
+                // Create share data
+                const shareData = {
+                    title: 'Comparación de Pilotos F1',
+                    text: `Comparación entre ${this.driverStats[this.driver1]?.name} y ${this.driverStats[this.driver2]?.name} en la temporada actual de F1`,
+                    files: [new File([blob], 'comparison.png', { type: 'image/png' })]
+                };
+
+                // Try to use Web Share API
+                if (navigator.share && navigator.canShare(shareData)) {
+                    await navigator.share(shareData);
+                } else {
+                    // Fallback: Download image
+                    const link = document.createElement('a');
+                    link.download = 'comparison.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                }
+            } catch (error) {
+                console.error('Error sharing comparison:', error);
+                this.error = 'Error al compartir la comparación';
+            } finally {
+                this.loading = false;
+            }
+        },
+
         async init() {
             try {
                 this.loading = true;
