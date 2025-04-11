@@ -1,0 +1,16 @@
+{
+  "name": "versus-web",
+  "version": "1.0.0",
+  "description": "Frontend for Versus F1 Driver Comparison",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve -s .",
+    "dev": "serve -s . -l 8080"
+  },
+  "keywords": ["f1", "formula1", "comparison", "frontend"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+}
