@@ -291,7 +291,10 @@
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <!-- Environment Variables -->
     <script>
-        window.API_URL = 'https://versusapi.fly.dev';
+        // Use environment-specific API URL
+        window.API_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:3000' 
+            : 'https://versusapi.fly.dev/';
     </script>
     <!-- Custom JS -->
     <script src="js/app.js?v=1.0.4"></script>
