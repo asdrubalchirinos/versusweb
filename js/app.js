@@ -9,45 +9,34 @@ function versusApp() {
         loading: true,
         error: null,
 
-        async shareComparison() {
+        async downloadComparison() {
             try {
                 this.loading = true;
                 const container = document.getElementById('comparison-container');
                 
                 // Generate image
-                const canvas = await html2canvas(container, {
-                    scale: 2, // Higher quality
-                    backgroundColor: '#f8f9fa',
-                    logging: false,
-                    useCORS: true
-                });
-
-                // Convert to blob
-                const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png', 1.0));
+                const canvas = await this.generateComparisonImage(container);
                 
-                // Create share data
-                const shareData = {
-                    title: 'Comparación de Pilotos F1',
-                    text: `Comparación entre ${this.driverStats[this.driver1]?.name} y ${this.driverStats[this.driver2]?.name} en la temporada actual de F1`,
-                    files: [new File([blob], 'comparison.png', { type: 'image/png' })]
-                };
-
-                // Try to use Web Share API
-                if (navigator.share && navigator.canShare(shareData)) {
-                    await navigator.share(shareData);
-                } else {
-                    // Fallback: Download image
-                    const link = document.createElement('a');
-                    link.download = 'comparison.png';
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
-                }
+                // Download image
+                const link = document.createElement('a');
+                link.download = `comparison-${this.driverStats[this.driver1]?.name}-vs-${this.driverStats[this.driver2]?.name}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
             } catch (error) {
-                console.error('Error sharing comparison:', error);
-                this.error = 'Error al compartir la comparación';
+                console.error('Error downloading comparison:', error);
+                this.error = 'Error al descargar la comparación';
             } finally {
                 this.loading = false;
             }
+        },
+
+        async generateComparisonImage(container) {
+            return await html2canvas(container, {
+                scale: 2, // Higher quality
+                backgroundColor: '#f8f9fa',
+                logging: false,
+                useCORS: true
+            });
         },
 
         async init() {
@@ -61,7 +50,7 @@ function versusApp() {
                 this.drivers = driversData.map(driver => ({
                     id: driver.driverId,
                     name: `${driver.name} ${driver.surname}`,
-                    shortName: driver.shortName,
+                    shortName: driver.shortName || driver.surname.toUpperCase(),
                     team: driver.teamName,
                     points: driver.points,
                     position: driver.position,
@@ -93,6 +82,7 @@ function versusApp() {
                 this.driverStats = {
                     [this.driver1]: {
                         name: driver1Data.name,
+                        shortName: driver1Data.shortName,
                         team: driver1Data.team,
                         position: driver1Data.position,
                         points: driver1Data.points,
@@ -101,6 +91,7 @@ function versusApp() {
                     },
                     [this.driver2]: {
                         name: driver2Data.name,
+                        shortName: driver2Data.shortName,
                         team: driver2Data.team,
                         position: driver2Data.position,
                         points: driver2Data.points,
