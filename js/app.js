@@ -31,12 +31,56 @@ function versusApp() {
         },
 
         async generateComparisonImage(container) {
-            return await html2canvas(container, {
-                scale: 2, // Higher quality
+            // First capture the comparison content
+            const canvas = await html2canvas(container, {
+                scale: 2,
                 backgroundColor: '#f8f9fa',
                 logging: false,
                 useCORS: true
             });
+
+            // Create a new canvas for the final image with watermark
+            const finalCanvas = document.createElement('canvas');
+            finalCanvas.width = canvas.width;
+            finalCanvas.height = canvas.height;
+            const ctx = finalCanvas.getContext('2d');
+
+            // Draw the original content
+            ctx.drawImage(canvas, 0, 0);
+
+            // Load and draw the watermark
+            const logo = new Image();
+            logo.src = 'images/watermark.png';
+            
+            await new Promise((resolve) => {
+                logo.onload = resolve;
+            });
+
+            // Calculate watermark size while maintaining aspect ratio
+            const maxSize = Math.min(canvas.width * 0.4, canvas.height * 0.4);
+            const aspectRatio = logo.width / logo.height;
+            let watermarkWidth, watermarkHeight;
+
+            if (aspectRatio > 1) {
+                // Logo is wider than tall
+                watermarkWidth = maxSize;
+                watermarkHeight = maxSize / aspectRatio;
+            } else {
+                // Logo is taller than wide
+                watermarkHeight = maxSize;
+                watermarkWidth = maxSize * aspectRatio;
+            }
+
+            // Position watermark at top center
+            const x = (canvas.width - watermarkWidth) / 2;
+            const y = 20; // 20px from the top
+
+            // Draw watermark with reduced opacity
+            ctx.globalAlpha = 0.5;
+            ctx.drawImage(logo, x, y, watermarkWidth, watermarkHeight);
+            ctx.globalAlpha = 1.0;
+
+            return finalCanvas;
         },
 
         async init() {
