@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SFZLGHBM9R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-SFZLGHBM9R');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Versus - Comparación de Pilotos F1</title>
@@ -23,51 +34,62 @@
             flex-direction: column;
             padding: 0;
         }
+
         .site-header {
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             background-color: #000;
             margin-bottom: 0;
         }
+
         .container {
             flex: 1;
         }
+
         .site-footer {
-            border-top: 1px solid rgba(0,0,0,0.1);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
             margin-top: auto;
         }
+
         .navbar-brand {
             font-weight: 700;
             padding: 0.25rem 0;
         }
+
         .navbar-brand img {
             max-height: 120px;
             width: auto;
             transition: transform 0.3s ease;
         }
+
         .navbar-brand img:hover {
             transform: scale(1.05);
         }
+
         .site-footer a {
             color: #1a1a1a;
             transition: color 0.3s ease;
         }
+
         .site-footer a:hover {
             color: #dc3545;
         }
+
         .driver-panel {
             padding: 2rem;
             border-radius: 15px;
             background-color: white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             height: 100%;
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
         }
+
         .driver-panel:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
+
         .driver-name {
             font-size: 2rem;
             font-weight: bold;
@@ -78,84 +100,100 @@
             text-overflow: ellipsis;
             max-width: 100%;
         }
+
         .team-name {
             color: #666;
             font-size: 1.2rem;
             margin-bottom: 1.5rem;
             font-weight: 500;
         }
+
         .stats {
             margin-top: 1.5rem;
             display: grid;
             gap: 1.5rem;
         }
+
         .stat-item {
             display: grid;
             align-items: center;
             padding: 0.5rem 0;
             border-bottom: 1px solid #eee;
         }
+
         .stat-item:last-child {
             border-bottom: none;
         }
+
         .stat-item.right-align {
             grid-template-columns: 1fr 60px;
         }
+
         .stat-item:not(.right-align) {
             grid-template-columns: 60px 1fr;
         }
+
         .stat-item span {
             font-weight: 600;
             color: #2c3e50;
         }
+
         /* Left panel */
         .stat-item.right-align span:first-child {
             text-align: right;
             padding-right: 1.5rem;
         }
+
         .stat-item.right-align span:last-child {
             text-align: right;
             font-size: xx-large;
         }
+
         /* Right panel */
         .stat-item:not(.right-align) span:first-child {
             text-align: left;
             font-size: xx-large;
         }
+
         .stat-item:not(.right-align) span:last-child {
             text-align: left;
             padding-left: 1.5rem;
         }
+
         .vs-text {
             font-size: 3rem;
             color: #dc3545;
             font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
             margin: 2rem 0;
         }
+
         .form-select {
             padding: 0.75rem;
             font-size: 1.1rem;
             border-radius: 10px;
             margin-bottom: 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
+
         .loading-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(255,255,255,0.8);
+            background: rgba(255, 255, 255, 0.8);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
         }
+
         .spinner {
             width: 3rem;
             height: 3rem;
         }
+
         /* Download Button Styles */
         .btn-download {
             background-color: #28a745;
@@ -164,56 +202,67 @@
             border-radius: 25px;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         .btn-download:hover {
             background-color: #218838;
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
             color: #ffc901;
         }
+
         .btn-download i {
             font-size: 1.2rem;
-        }        
+        }
+
         /* Comparison Container Styles */
         #comparison-container {
             background-color: oldlace;
             border-radius: 15px;
             padding: 2rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         /* Driver Image Styles */
         .driver-image-container {
             height: 200px;
             overflow: hidden;
             border-radius: 10px;
-            margin-bottom: 1rem;            
+            margin-bottom: 1rem;
             padding: 0;
         }
+
         .driver-image {
             width: auto;
             height: 100%;
             object-fit: contain;
         }
+
         /* Left panel image alignment */
         .col-md-5:first-child .driver-image-container {
             text-align: right;
         }
+
         .col-md-5:first-child .driver-image {
             object-position: right;
         }
+
         /* Right panel image alignment */
         .col-md-5:last-child .driver-image-container {
             text-align: left;
         }
+
         .col-md-5:last-child .driver-image {
             object-position: left;
         }
+
         .navbar {
             padding: 0.25rem 0;
         }
     </style>
 </head>
+
 <body>
     <!-- Site Header -->
     <header class="site-header mb-5">
@@ -226,7 +275,8 @@
         </nav>
     </header>
 
-    <div class="container" x-data="versusApp()" x-init="init()" x-effect="driver1 && driver2 ? updateDriverStats() : null">
+    <div class="container" x-data="versusApp()" x-init="init()"
+        x-effect="driver1 && driver2 ? updateDriverStats() : null">
         <!-- Loading Overlay -->
         <div class="loading-overlay" x-show="loading" x-transition>
             <div class="spinner-border text-primary spinner" role="status">
@@ -277,7 +327,8 @@
             </div>
 
             <!-- Comparison Section -->
-            <div class="row g-4" x-show="driver1 && driver2 && driverStats[driver1] && driverStats[driver2]" x-transition>
+            <div class="row g-4" x-show="driver1 && driver2 && driverStats[driver1] && driverStats[driver2]"
+                x-transition>
                 <!-- Share Buttons -->
                 <div class="col-12 text-center mb-4">
                     <button class="btn btn-download" @click="downloadComparison()">
@@ -291,9 +342,8 @@
                     <div class="col-md-5">
                         <div class="driver-panel">
                             <div class="driver-image-container">
-                                <img :src="`images/drivers/${driverStats[driver1]?.shortName}.jpg`" 
-                                     :alt="driverStats[driver1]?.name"
-                                     class="driver-image">
+                                <img :src="`images/drivers/${driverStats[driver1]?.shortName}.jpg`"
+                                    :alt="driverStats[driver1]?.name" class="driver-image">
                             </div>
                             <h2 class="driver-name text-end" x-text="driverStats[driver1]?.name"></h2>
                             <p class="team-name text-end" x-text="driverStats[driver1]?.team"></p>
@@ -327,9 +377,8 @@
                     <div class="col-md-5">
                         <div class="driver-panel">
                             <div class="driver-image-container">
-                                <img :src="`images/drivers/${driverStats[driver2]?.shortName}.jpg`" 
-                                     :alt="driverStats[driver2]?.name"
-                                     class="driver-image">
+                                <img :src="`images/drivers/${driverStats[driver2]?.shortName}.jpg`"
+                                    :alt="driverStats[driver2]?.name" class="driver-image">
                             </div>
                             <h2 class="driver-name text-start" x-text="driverStats[driver2]?.name"></h2>
                             <p class="team-name text-start" x-text="driverStats[driver2]?.team"></p>
@@ -366,7 +415,8 @@
                     <p class="mb-0">© 2025 Máquinas y Pilotos. Todos los derechos reservados.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <a href="https://twitter.com/maquinaspilotos" class="text-decoration-none" target="_blank" rel="noopener">
+                    <a href="https://twitter.com/maquinaspilotos" class="text-decoration-none" target="_blank"
+                        rel="noopener">
                         <i class="bi bi-twitter-x"></i> @maquinaspilotos
                     </a>
                 </div>
@@ -381,11 +431,12 @@
     <!-- Environment Variables -->
     <script>
         // Use environment-specific API URL
-        window.API_URL = window.location.hostname === 'localhost' 
-            ? 'http://localhost:3000' 
+        window.API_URL = window.location.hostname === 'localhost'
+            ? 'http://localhost:3000'
             : 'https://versusapi.fly.dev';
     </script>
     <!-- Custom JS -->
     <script src="js/app.js?v=1.0.4"></script>
 </body>
+
 </html>

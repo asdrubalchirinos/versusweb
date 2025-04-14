@@ -14,6 +14,13 @@ function versusApp() {
                 this.loading = true;
                 const container = document.getElementById('comparison-container');
                 
+                // Track download event
+                gtag('event', 'download', {
+                    'event_category': 'Driver Comparison',
+                    'event_label': `${this.driverStats[this.driver1]?.name} vs ${this.driverStats[this.driver2]?.name}`,
+                    'value': 1
+                });
+                
                 // Generate image
                 const canvas = await this.generateComparisonImage(container);
                 
@@ -121,6 +128,13 @@ function versusApp() {
                 // Get drivers' basic info
                 const driver1Data = this.drivers.find(d => d.id === this.driver1);
                 const driver2Data = this.drivers.find(d => d.id === this.driver2);
+
+                // Track compare event
+                gtag('event', 'compare', {
+                    'event_category': 'Driver Comparison',
+                    'event_label': `${driver1Data.name} vs ${driver2Data.name}`,
+                    'value': 1
+                });
 
                 // Update stats with combined data
                 this.driverStats = {
