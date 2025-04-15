@@ -38,56 +38,98 @@ function versusApp() {
         },
 
         async generateComparisonImage(container) {
-            // First capture the comparison content
-            const canvas = await html2canvas(container, {
-                scale: 2,
-                backgroundColor: '#f8f9fa',
-                logging: false,
-                useCORS: true
-            });
+            try {
+                // Store original styles
+                const originalStyles = {
+                    width: container.style.width,
+                    margin: container.style.margin,
+                    padding: container.style.padding,
+                    borderRadius: container.style.borderRadius,
+                    backgroundColor: container.style.backgroundColor,
+                    display: container.style.display,
+                    flexDirection: container.style.flexDirection
+                };
 
-            // Create a new canvas for the final image with watermark
-            const finalCanvas = document.createElement('canvas');
-            finalCanvas.width = canvas.width;
-            finalCanvas.height = canvas.height;
-            const ctx = finalCanvas.getContext('2d');
+                // Apply fixed width styles for capture
+                container.style.width = '1200px';
+                container.style.margin = '0 auto';
+                container.style.backgroundColor = '#f8f9fa';
+                container.style.padding = '2rem';
+                container.style.borderRadius = '15px';
+                container.style.display = 'flex';
+                container.style.flexDirection = 'row';
 
-            // Draw the original content
-            ctx.drawImage(canvas, 0, 0);
+                // Ensure all images are loaded
+                const images = container.getElementsByTagName('img');
+                await Promise.all(Array.from(images).map(img => {
+                    if (!img.complete) {
+                        return new Promise((resolve, reject) => {
+                            img.onload = resolve;
+                            img.onerror = reject;
+                        });
+                    }
+                    return Promise.resolve();
+                }));
 
-            // Load and draw the watermark
-            const logo = new Image();
-            logo.src = 'images/watermark.png';
-            
-            await new Promise((resolve) => {
-                logo.onload = resolve;
-            });
+                // Capture the content
+                const canvas = await html2canvas(container, {
+                    scale: 2,
+                    backgroundColor: '#f8f9fa',
+                    logging: false,
+                    useCORS: true,
+                    allowTaint: true,
+                    windowWidth: 1200
+                });
 
-            // Calculate watermark size while maintaining aspect ratio
-            const maxSize = Math.min(canvas.width * 0.4, canvas.height * 0.4);
-            const aspectRatio = logo.width / logo.height;
-            let watermarkWidth, watermarkHeight;
+                // Restore original styles
+                Object.assign(container.style, originalStyles);
 
-            if (aspectRatio > 1) {
-                // Logo is wider than tall
-                watermarkWidth = maxSize;
-                watermarkHeight = maxSize / aspectRatio;
-            } else {
-                // Logo is taller than wide
-                watermarkHeight = maxSize;
-                watermarkWidth = maxSize * aspectRatio;
+                // Create a new canvas for the final image with watermark
+                const finalCanvas = document.createElement('canvas');
+                finalCanvas.width = canvas.width;
+                finalCanvas.height = canvas.height;
+                const ctx = finalCanvas.getContext('2d');
+
+                // Draw the original content
+                ctx.drawImage(canvas, 0, 0);
+
+                // Load and draw the watermark
+                const logo = new Image();
+                logo.src = 'images/watermark.png';
+                
+                await new Promise((resolve) => {
+                    logo.onload = resolve;
+                });
+
+                // Calculate watermark size while maintaining aspect ratio
+                const maxSize = Math.min(canvas.width * 0.4, canvas.height * 0.4);
+                const aspectRatio = logo.width / logo.height;
+                let watermarkWidth, watermarkHeight;
+
+                if (aspectRatio > 1) {
+                    // Logo is wider than tall
+                    watermarkWidth = maxSize;
+                    watermarkHeight = maxSize / aspectRatio;
+                } else {
+                    // Logo is taller than wide
+                    watermarkHeight = maxSize;
+                    watermarkWidth = maxSize * aspectRatio;
+                }
+
+                // Position watermark at top center
+                const x = (canvas.width - watermarkWidth) / 2;
+                const y = 20; // 20px from the top
+
+                // Draw watermark with reduced opacity
+                ctx.globalAlpha = 0.5;
+                ctx.drawImage(logo, x, y, watermarkWidth, watermarkHeight);
+                ctx.globalAlpha = 1.0;
+
+                return finalCanvas;
+            } catch (error) {
+                console.error('Error generating image:', error);
+                throw error;
             }
-
-            // Position watermark at top center
-            const x = (canvas.width - watermarkWidth) / 2;
-            const y = ((canvas.height - watermarkHeight) / 2) - 140;
-
-            // Draw watermark with reduced opacity
-            ctx.globalAlpha = 0.1;
-            ctx.drawImage(logo, x, y, watermarkWidth, watermarkHeight);
-            ctx.globalAlpha = 1.0;
-
-            return finalCanvas;
         },
 
         async init() {
