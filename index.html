@@ -93,7 +93,7 @@
         .driver-name {
             font-size: 2rem;
             font-weight: bold;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0;
             color: #1a1a1a;
             white-space: nowrap;
             overflow: hidden;
@@ -104,7 +104,42 @@
         .team-name {
             color: #666;
             font-size: 1.2rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
+        .driver-info {
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .driver-info .age {
+            font-weight: 500;
+        }
+
+        .driver-info .nationality {
+            font-style: italic;
+        }
+
+        .driver-info .flag {
+            vertical-align: middle;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-info {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .team-info .team-position {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .team-info .team-points {
             font-weight: 500;
         }
 
@@ -346,7 +381,16 @@
                                     :alt="driverStats[driver1]?.name" class="driver-image">
                             </div>
                             <h2 class="driver-name text-end" x-text="driverStats[driver1]?.name"></h2>
+                            <div class="driver-info text-end">
+                                <span class="age" x-text="drivers.find(d => d.id === driver1)?.age + ' años'"></span>
+                                <span class="nationality ms-2" x-text="drivers.find(d => d.id === driver1)?.nationality"></span>
+                                <span class="flag ms-2" x-text="drivers.find(d => d.id === driver1)?.flag"></span>
+                            </div>
                             <p class="team-name text-end" x-text="driverStats[driver1]?.team"></p>
+                            <div class="team-info text-end">
+                                <span class="team-position" x-text="'P' + drivers.find(d => d.id === driver1)?.teamPosition"></span>
+                                <span class="team-points ms-2" x-text="drivers.find(d => d.id === driver1)?.teamPoints + ' pts'"></span>
+                            </div>
                             <div class="stats">
                                 <p class="stat-item right-align">
                                     <span>Posición</span>
@@ -393,7 +437,16 @@
                                     :alt="driverStats[driver2]?.name" class="driver-image">
                             </div>
                             <h2 class="driver-name text-start" x-text="driverStats[driver2]?.name"></h2>
+                            <div class="driver-info text-start">
+                                <span class="age" x-text="drivers.find(d => d.id === driver2)?.age + ' años'"></span>
+                                <span class="nationality ms-2" x-text="drivers.find(d => d.id === driver2)?.nationality"></span>
+                                <span class="flag ms-2" x-text="drivers.find(d => d.id === driver2)?.flag"></span>
+                            </div>
                             <p class="team-name text-start" x-text="driverStats[driver2]?.team"></p>
+                            <div class="team-info text-start">
+                                <span class="team-position" x-text="'P' + drivers.find(d => d.id === driver2)?.teamPosition"></span>
+                                <span class="team-points ms-2" x-text="drivers.find(d => d.id === driver2)?.teamPoints + ' pts'"></span>
+                            </div>
                             <div class="stats">
                                 <p class="stat-item">
                                     <span x-text="driverStats[driver2]?.position"></span>

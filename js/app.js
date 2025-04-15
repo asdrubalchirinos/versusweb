@@ -102,7 +102,12 @@ function versusApp() {
                     id: driver.driverId,
                     name: `${driver.name} ${driver.surname}`,
                     shortName: driver.shortName || driver.surname.toUpperCase(),
+                    nationality: driver.nationality,
+                    flag: driver.flag,
+                    age: driver.age,
                     team: driver.teamName,
+                    teamPoints: driver.teamPoints,
+                    teamPosition: driver.teamPosition,
                     points: driver.points,
                     position: driver.position,
                     wins: driver.wins
