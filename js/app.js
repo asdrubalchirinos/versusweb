@@ -144,8 +144,11 @@ function versusApp() {
                         team: driver1Data.team,
                         position: driver1Data.position,
                         points: driver1Data.points,
-                        positionWins: statsData.position[this.driver1],
-                        gridWins: statsData.grid[this.driver1]
+                        positionWins: statsData.racePosition[this.driver1],
+                        gridWins: statsData.qualyPosition[this.driver1],
+                        wins: statsData.wins[this.driver1],
+                        podiums: statsData.podiums[this.driver1],
+                        poles: statsData.poles[this.driver1]
                     },
                     [this.driver2]: {
                         name: driver2Data.name,
@@ -153,8 +156,11 @@ function versusApp() {
                         team: driver2Data.team,
                         position: driver2Data.position,
                         points: driver2Data.points,
-                        positionWins: statsData.position[this.driver2],
-                        gridWins: statsData.grid[this.driver2]
+                        positionWins: statsData.racePosition[this.driver2],
+                        gridWins: statsData.qualyPosition[this.driver2],
+                        wins: statsData.wins[this.driver2],
+                        podiums: statsData.podiums[this.driver2],
+                        poles: statsData.poles[this.driver2]
                     }
                 };
 

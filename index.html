@@ -111,7 +111,7 @@
         .stats {
             margin-top: 1.5rem;
             display: grid;
-            gap: 1.5rem;
+            /* gap: 1.5rem; */
         }
 
         .stat-item {
@@ -357,11 +357,23 @@
                                     <span x-text="driverStats[driver1]?.points"></span>
                                 </p>
                                 <p class="stat-item right-align">
-                                    <span>Carreras superando al rival</span>
+                                    <span>Victorias</span>
+                                    <span x-text="driverStats[driver1]?.wins"></span>
+                                </p>
+                                <p class="stat-item right-align">
+                                    <span>Podios</span>
+                                    <span x-text="driverStats[driver1]?.podiums"></span>
+                                </p>
+                                <p class="stat-item right-align">
+                                    <span>Poles</span>
+                                    <span x-text="driverStats[driver1]?.poles"></span>
+                                </p>
+                                <p class="stat-item right-align">
+                                    <span>Veces por delante en carrera</span>
                                     <span x-text="driverStats[driver1]?.positionWins"></span>
                                 </p>
                                 <p class="stat-item right-align">
-                                    <span>Clasificaciones superando al rival</span>
+                                    <span>Veces por delante en clasificación</span>
                                     <span x-text="driverStats[driver1]?.gridWins"></span>
                                 </p>
                             </div>
@@ -392,12 +404,24 @@
                                     <span>Puntos</span>
                                 </p>
                                 <p class="stat-item">
+                                    <span x-text="driverStats[driver2]?.wins"></span>
+                                    <span>Victorias</span>
+                                </p>
+                                <p class="stat-item">
+                                    <span x-text="driverStats[driver2]?.podiums"></span>
+                                    <span>Podios</span>
+                                </p>
+                                <p class="stat-item">
+                                    <span x-text="driverStats[driver2]?.poles"></span>
+                                    <span>Poles</span>
+                                </p>
+                                <p class="stat-item">
                                     <span x-text="driverStats[driver2]?.positionWins"></span>
-                                    <span>Carreras superando al rival</span>
+                                    <span>Veces por delante en carrera</span>
                                 </p>
                                 <p class="stat-item">
                                     <span x-text="driverStats[driver2]?.gridWins"></span>
-                                    <span>Clasificaciones superando al rival</span>
+                                    <span>Veces por delante en clasificación</span>
                                 </p>
                             </div>
                         </div>
