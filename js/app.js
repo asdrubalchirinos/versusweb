@@ -80,10 +80,10 @@ function versusApp() {
 
             // Position watermark at top center
             const x = (canvas.width - watermarkWidth) / 2;
-            const y = 20; // 20px from the top
+            const y = ((canvas.height - watermarkHeight) / 2) - 140;
 
             // Draw watermark with reduced opacity
-            ctx.globalAlpha = 0.5;
+            ctx.globalAlpha = 0.1;
             ctx.drawImage(logo, x, y, watermarkWidth, watermarkHeight);
             ctx.globalAlpha = 1.0;
 

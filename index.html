@@ -262,34 +262,31 @@
         /* Driver Image Styles */
         .driver-image-container {
             height: 200px;
+            width: 200px;
             overflow: hidden;
-            border-radius: 10px;
-            margin-bottom: 1rem;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
             padding: 0;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .driver-image {
-            width: auto;
+            width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
         }
 
         /* Left panel image alignment */
         .col-md-5:first-child .driver-image-container {
-            text-align: right;
-        }
-
-        .col-md-5:first-child .driver-image {
-            object-position: right;
+            margin-left: auto;
+            margin-right: 0;
         }
 
         /* Right panel image alignment */
         .col-md-5:last-child .driver-image-container {
-            text-align: left;
-        }
-
-        .col-md-5:last-child .driver-image {
-            object-position: left;
+            margin-left: 0;
+            margin-right: auto;
         }
 
         .navbar {
