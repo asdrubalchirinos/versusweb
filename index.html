@@ -354,7 +354,7 @@
             <div class="col-12 text-center" x-show="!driver1 || !driver2">
                 <div class="alert alert-info py-4">
                     <h4 class="alert-heading mb-3">👋 ¡Bienvenido a Versus!</h4>
-                    <p class="mb-0">Selecciona dos pilotos arriba para comparar sus estadísticas de la temporada.</p>
+                    <p class="mb-0">Selecciona dos pilotos arriba para comparar sus estadísticas de la temporada <span x-text="new Date().getFullYear()"></span>.</p>
                 </div>
             </div>
 
@@ -486,11 +486,12 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <p class="mb-0">© 2025 Máquinas y Pilotos. Todos los derechos reservados.</p>
+                    <p class="mb-0" x-data="{ currentYear: new Date().getFullYear() }" x-text="`© ${currentYear} Máquinas y Pilotos. Todos los derechos reservados.`"></p>
+                    <p class="mb-0 small text-muted">Desarrollado por <a href="https://twitter.com/achirinos" target="_blank" rel="noopener">Asdrúbal Chirinos</a></p>
+                    <p class="mb-0 small text-muted">Datos obtenidos de <a href="https://f1api.dev/" target="_blank" rel="noopener">F1 API</a></p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <a href="https://twitter.com/maquinaspilotos" class="text-decoration-none" target="_blank"
-                        rel="noopener">
+                    <a href="https://twitter.com/maquinaspilotos" class="text-decoration-none" target="_blank" rel="noopener">
                         <i class="bi bi-twitter-x"></i> @maquinaspilotos
                     </a>
                 </div>
