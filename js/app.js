@@ -1,6 +1,6 @@
 function versusApp() {
     const API_URL = window.API_URL || 'http://localhost:3000';
-    
+
     return {
         drivers: [],
         driver1: '',
@@ -13,17 +13,17 @@ function versusApp() {
             try {
                 this.loading = true;
                 const container = document.getElementById('comparison-container');
-                
+
                 // Track download event
                 gtag('event', 'download', {
                     'event_category': 'Driver Comparison',
                     'event_label': `${this.driverStats[this.driver1]?.name} vs ${this.driverStats[this.driver2]?.name}`,
                     'value': 1
                 });
-                
+
                 // Generate image
                 const canvas = await this.generateComparisonImage(container);
-                
+
                 // Download image
                 const link = document.createElement('a');
                 link.download = `comparison-${this.driverStats[this.driver1]?.name}-vs-${this.driverStats[this.driver2]?.name}.png`;
@@ -96,7 +96,7 @@ function versusApp() {
                 // Load and draw the watermark
                 const logo = new Image();
                 logo.src = 'images/watermark.png';
-                
+
                 await new Promise((resolve) => {
                     logo.onload = resolve;
                 });
@@ -138,7 +138,7 @@ function versusApp() {
                 // Fetch drivers from API
                 const response = await fetch(`${API_URL}/api/drivers`);
                 const driversData = await response.json();
-                
+
                 // Transform drivers data
                 this.drivers = driversData.map(driver => ({
                     id: driver.driverId,
@@ -172,6 +172,9 @@ function versusApp() {
                 const statsResponse = await fetch(`${API_URL}/api/driver-stats/${this.driver1}/${this.driver2}`);
                 const statsData = await statsResponse.json();
 
+                // get lastest race info
+                const lastRace = statsData.lastRace;
+
                 // Get drivers' basic info
                 const driver1Data = this.drivers.find(d => d.id === this.driver1);
                 const driver2Data = this.drivers.find(d => d.id === this.driver2);
@@ -185,6 +188,7 @@ function versusApp() {
 
                 // Update stats with combined data
                 this.driverStats = {
+                    lastRace: lastRace,
                     [this.driver1]: {
                         name: driver1Data.name,
                         shortName: driver1Data.shortName,
